@@ -1,0 +1,42 @@
+{a9c84338-104a-4e5a-9151-6942d5842e23} event:/cars/ks_toyota_ae86_tuned/backfire_ext
+{4a56ea58-775a-4585-ac25-99d2f15430fc} event:/cars/ks_toyota_ae86_tuned/backfire_int
+{c4e22411-876c-4bd3-8a4c-b6dbaa9dbaf6} event:/cars/ks_toyota_ae86_tuned/bodywork
+{ddbe749a-be76-4e93-a220-6a95c7e6011f} event:/cars/ks_toyota_ae86_tuned/door
+{5ac5bb9f-8f62-49e4-a05f-f06b83eb0ac6} event:/cars/ks_toyota_ae86_tuned/engine_ext
+{48c55ec2-4b59-4fbc-b639-d8a14d10ff19} event:/cars/ks_toyota_ae86_tuned/engine_int
+{28a61df4-d65b-4170-8bb9-7ac0f3f4dd96} event:/cars/ks_toyota_ae86_tuned/gear_ext
+{fd27744d-0daa-4697-a88f-cd12c59439cd} event:/cars/ks_toyota_ae86_tuned/gear_grind
+{648b172c-602a-4ffe-9c21-d7a363474e35} event:/cars/ks_toyota_ae86_tuned/gear_int
+{b71979cf-3fee-4589-bc5c-f17d39de2171} event:/cars/ks_toyota_ae86_tuned/horn
+{739149b4-3b1c-4413-b8d0-c1cfddc3296e} event:/cars/ks_toyota_ae86_tuned/limiter
+{d999427f-4dfc-4c37-9460-85d33b727580} event:/cars/ks_toyota_ae86_tuned/skid_ext
+{8739eeaa-275a-4f82-96ec-74566d20734a} event:/cars/ks_toyota_ae86_tuned/skid_int
+{70aae826-23c7-47ad-83bd-0e5f4a133f66} event:/cars/ks_toyota_ae86_tuned/tractioncontrol_ext
+{36d566e0-93a5-4053-a74c-83a3cf5be101} event:/cars/ks_toyota_ae86_tuned/tractioncontrol_int
+{02f14088-6cd5-4284-88c7-1191ba134e25} event:/cars/ks_toyota_ae86_tuned/transmission
+{e28e162a-ceff-49f6-9f05-93db0f80a1a2} event:/cars/ks_toyota_ae86_tuned/turbo
+{783df179-e241-451b-81d1-1e4ab15ca195} event:/cars/ks_toyota_ae86_tuned/wheel
+{12874ec0-fe91-40b3-a29c-b2ead8b50196} event:/cars/ks_toyota_ae86_tuned/wind
+{08f6ba78-f576-4f9f-a232-47657d5fec19} bus:/
+{378981f8-2b16-4f5d-8911-bd454df05e6b} bus:/CARS
+{a5019ec0-6d9b-4e4b-b999-17d8383f1d84} bus:/common
+{449b1cf9-dc7f-46a7-87db-dc7fa76bcf85} bus:/EXTERIOR sounds
+{19c2aa16-2752-46c7-ad80-57f852200f35} bus:/EXTERIOR sounds/Skid EXT
+{ee0e6430-ba19-4c05-a201-d9c00f8fd1f7} bus:/Wind and Wheels
+{61e13a9c-887e-4b94-8d11-12ba197b6c22} bus:/Wind and Wheels/wheels (closed cars)
+{759fd77f-a073-4974-b3e5-21f706fa01b9} bus:/Wind and Wheels/wheels (open wheels)
+{4ce682d5-0cc5-4845-a6b5-eb8b073e2959} bus:/Wind and Wheels/wind (closed cars)
+{bb7998e4-68b3-45ea-9308-e015dde4ef11} bus:/Wind and Wheels/wind (open wheels)
+{4578a1b8-25a7-427b-a8d0-7fabacb9a10e} vca:/backfire EXT
+{3fe51a61-de17-4b62-9d20-1526a20d3aa2} vca:/backfire INT
+{a657fc05-b25c-4111-8dd1-c0dadbb5205e} vca:/Engine EXT
+{1207f2b6-7aae-4912-8b2b-ec4d1471a201} vca:/Engine INT
+{ceff60c4-5f22-4a80-af70-28cc1ca91c32} vca:/gearint_H
+{eed6d155-e23d-4589-a2fb-2d5cc4165ba6} vca:/gearint_paddles
+{08cd60e5-84a9-4953-813f-bdbe54f1e710} vca:/gearint_stick
+{c8749f27-6fd7-4c67-8641-32c93aa8d3d8} vca:/limiter
+{317feda0-c8e9-4f54-845d-ce0491ea1be4} vca:/surfaces
+{e18b58af-e0c3-4595-80af-aabf0908701d} vca:/transmission
+{ba82f681-7ba4-44c9-a8a7-e7dc95d453d1} snapshot:/Exterior Reverb
+{4b92e6ce-e701-48dd-8dc2-cb371c15dbfe} bank:/ks_toyota_ae86_tuned
+{47dcf37a-6a8d-4ef6-9f82-2e0398fa69f9} bank:/common
