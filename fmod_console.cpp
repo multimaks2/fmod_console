@@ -21,9 +21,6 @@ static const SFixedArray<bankiInf, 3> tableBank =
 
 void fmod_main_load()
 {
-	//outPutConsoleMessage(tableBank[0].bank);
-
-
 	auto audio = getDirFile("audio\\4k.wav", getConsolePath());
 	SString bank = getDirFile("audio\\Vehicles.bank", getConsolePath());
 	
@@ -59,10 +56,7 @@ void fmod_main_load()
 		{
 			outPutConsoleMessage(tableBank[i].bank + " -> Загружены" );
 			//std::cout << getBankLoadingState(tableBank[i].bank) << "\n";
-		}
-
-
-			
+		}	
 	}
 
 	outPutConsoleMessage("--------------------------------");
@@ -81,7 +75,7 @@ void fmod_main_load()
 			outPutConsoleMessage("--------------------------------");
 			
 			set3DAttributes(eventNamessss, 0,0 ,0, 0, 0); // 2 аргумента слушателя
-			setEventVolume(eventNamessss, 1);
+			setEventVolume(eventNamessss, .1);
 			setEventReverbLevel(eventNamessss,0,30);
 			getEventReverbLevel(eventNamessss);
 			getDriver();
@@ -89,12 +83,6 @@ void fmod_main_load()
 			updaterSlep();
 		}
 	}
-	
-
-	//if (createSound(audio))
-	//{
-	//	outPutConsoleMessage("FMOD - Звук создан");
-	//}
 }
 
 
@@ -102,7 +90,7 @@ void fmod_main_load()
 
 int main()
 {
-	SetConsoleTitleW(L"Moon Studio - Test Console API (FMOD)");
+	SetConsoleTitleW(L"Moon Studio - [Console FMOD]");
 	setlocale(LC_ALL, "Rus");
 
 	fmod_main_load();

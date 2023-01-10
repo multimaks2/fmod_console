@@ -22,7 +22,7 @@ FMOD::Channel* channel = nullptr;
 FMOD::Studio::Bank* vehiclesBank;
 FMOD::Studio::EventDescription* eventDescription = NULL;
 FMOD::Studio::EventInstance* eventInstance = NULL;
-FMOD::Studio::Bank* localizedBank = NULL;
+FMOD::Studio::Bank* localRadzedBank = NULL;
 
 struct myArray {
 	int mnNextChannelId;
@@ -51,7 +51,6 @@ void initArray()
 bool createFmod()
 {
 	if (FMOD::System_Create(&f_system) == FMOD_OK)
-
 		return true;
 	return false;
 
@@ -87,14 +86,12 @@ int playSound(const char* soundDir)
 {
 	int nChannelID = ArrayMap->mnNextChannelId++;
 	FMOD::Channel* pChannel = nullptr;
-
 	result = f_system->playSound(ArrayMap->mSounds[soundDir], nullptr, false, &pChannel);
 	ArrayMap->mChannels[nChannelID] = pChannel;
 	if (result == FMOD_OK)
 	{
 		outPutConsoleMessage("FMOD - Звук запущен");
 	}
-		
 	return nChannelID;
 }
 
@@ -206,7 +203,7 @@ int getEventPlaybackState(const char* eventName)
 
 
 
-void set3DAttributes(const char* eventName, float forward_z, float up_y ,float fx, float fy, float fz)
+bool set3DAttributes(const char* eventName, float forward_z, float up_y ,float fx, float fy, float fz)
 {
 	FMOD_3D_ATTRIBUTES attributes = { { 0 } };
 	attributes.forward.z = forward_z;
@@ -216,8 +213,7 @@ void set3DAttributes(const char* eventName, float forward_z, float up_y ,float f
 	attributes.position.y = fy;
 	attributes.position.z = fz;
 	ArrayMap->mEvents[eventName]->set3DAttributes(&attributes);
-
-	//return true;
+	return true;
 }
 
 float getEventReverbLevel(const char* eventName)
@@ -230,7 +226,7 @@ bool setEventReverbLevel(const char* eventName,int index,float level)
 {
    result = ArrayMap->mEvents[eventName]->setReverbLevel(index,level);
    //if (FMOD_OK == result)
-	 //std::cout << eventName << " setEventReverbLevel " << index << " " << level <<  std::endl;
+	 //std::cout << eventName << " setEventReverbLevel " << index << " " << level <<  std::endl; // Дебаг информация
 }
 
 bool setEventVolume(const char* name,float value)
@@ -303,37 +299,38 @@ bool update(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
 
 void updaterSlep()
 {
-	float localI = 0;
+	float localRad = 0;
 	bool reverse = false;
 	do
 	{
 		if (reverse == false)
 		{
-			localI = localI + 0.1;
-			if ((int)localI >= 3)
+			localRad = localRad + 2;
+			if ((int)localRad == 360)
 			{
 				reverse = true;
 			}
 		}
 		else if (reverse == true)
 		{
-			localI = localI - 0.1;
-			if ((int)localI <= -3)
+			localRad = localRad - 2;
+			if ((int)localRad == 0)
 			{
 				reverse = false;
 			}
 		}
-		//std::cout << localI << "\r";
-		set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", 1, 1, localI, localI, localI); // рандом точки звука
+		int r = 2;
+		double rad = (double)localRad / 180 * 3.14;
+		double x = r * cos(rad);
+		double y = r * sin(rad);
+
+		std::cout << x <<" " << y << "\r";
+		set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", .1, .1, x, y, 0); // рандом точки звука
 		if (getEventPlaybackState("{3ad418ed-bf88-432d-837a-469d7468bda2}") == 2)
 		{
 			PlayEvent("{3ad418ed-bf88-432d-837a-469d7468bda2}");
 		}
-
-
 		update(true, true);
-
-		
 		Sleep(100);
 	} while (true);
 }
@@ -344,7 +341,6 @@ bool release(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
 		f_studio->unloadAll();
 	if (b2 == true)
 		f_studio->release();
-
 	return true;
 }
 
