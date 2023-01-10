@@ -303,10 +303,28 @@ bool update(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
 
 void updaterSlep()
 {
-	
+	float localI = 0;
+	bool reverse = false;
 	do
 	{
-		//set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", 1, 1, (-5 + rand() % 5), (-5 + rand() % 5), (-5 + rand() % 5)); // рандом точки звука
+		if (reverse == false)
+		{
+			localI = localI + 0.1;
+			if ((int)localI >= 3)
+			{
+				reverse = true;
+			}
+		}
+		else if (reverse == true)
+		{
+			localI = localI - 0.1;
+			if ((int)localI <= -3)
+			{
+				reverse = false;
+			}
+		}
+		//std::cout << localI << "\r";
+		set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", 1, 1, localI, localI, localI); // рандом точки звука
 		if (getEventPlaybackState("{3ad418ed-bf88-432d-837a-469d7468bda2}") == 2)
 		{
 			PlayEvent("{3ad418ed-bf88-432d-837a-469d7468bda2}");
@@ -316,7 +334,7 @@ void updaterSlep()
 		update(true, true);
 
 		
-		Sleep(1000);
+		Sleep(100);
 	} while (true);
 }
 
