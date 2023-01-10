@@ -10,9 +10,9 @@ struct bankiInf
 	SString bank;
 };
 
-static const SFixedArray<bankiInf, 4> tableBank =
+static const SFixedArray<bankiInf, 3> tableBank =
 { {
-	{getDirFile("audio\\ks_toyota_ae86_tuned.bank", getConsolePath())},
+	//{getDirFile("audio\\ks_toyota_ae86_tuned.bank", getConsolePath())},
 	{getDirFile("audio\\Master.bank", getConsolePath())},
 	{getDirFile("audio\\Master.strings.bank", getConsolePath())},
 	{getDirFile("audio\\Vehicles.bank", getConsolePath())},
@@ -57,8 +57,8 @@ void fmod_main_load()
 	{
 		if (LoadBankFile(tableBank[i].bank))
 		{
-			outPutConsoleMessage(tableBank[i].bank + " -> Загружены");
-			std::cout << getBankLoadingState(tableBank[i].bank) << "\n";
+			outPutConsoleMessage(tableBank[i].bank + " -> Загружены" );
+			//std::cout << getBankLoadingState(tableBank[i].bank) << "\n";
 		}
 
 
@@ -79,8 +79,9 @@ void fmod_main_load()
 				outPutConsoleMessage("FMOD - Звуковая группа создана");
 			}
 			outPutConsoleMessage("--------------------------------");
-			set3DAttributes(eventNamessss, 0, 0, 0);
-			setEventVolume(eventNamessss, .15);
+			
+			set3DAttributes(eventNamessss, 0,0 ,0, 0, 0); // 2 аргумента слушателя
+			setEventVolume(eventNamessss, 1);
 			setEventReverbLevel(eventNamessss,0,30);
 			getEventReverbLevel(eventNamessss);
 			getDriver();

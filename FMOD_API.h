@@ -206,18 +206,18 @@ int getEventPlaybackState(const char* eventName)
 
 
 
-bool set3DAttributes(const char* eventName, float fx, float fy, float fz)
+void set3DAttributes(const char* eventName, float forward_z, float up_y ,float fx, float fy, float fz)
 {
 	FMOD_3D_ATTRIBUTES attributes = { { 0 } };
-	attributes.forward.z = 1.0f;
-	attributes.up.y = 1.0f;
+	attributes.forward.z = forward_z;
+	attributes.up.y = up_y;
 	f_studio->setListenerAttributes(0, &attributes);
 	attributes.position.x = fx;
 	attributes.position.y = fy;
 	attributes.position.z = fz;
 	ArrayMap->mEvents[eventName]->set3DAttributes(&attributes);
 
-	return true;
+	//return true;
 }
 
 float getEventReverbLevel(const char* eventName)
@@ -303,14 +303,20 @@ bool update(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
 
 void updaterSlep()
 {
+	
 	do
 	{
+		//set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", 1, 1, (-5 + rand() % 5), (-5 + rand() % 5), (-5 + rand() % 5)); // рандом точки звука
 		if (getEventPlaybackState("{3ad418ed-bf88-432d-837a-469d7468bda2}") == 2)
 		{
 			PlayEvent("{3ad418ed-bf88-432d-837a-469d7468bda2}");
 		}
+
+
 		update(true, true);
-		Sleep(5000);
+
+		
+		Sleep(1000);
 	} while (true);
 }
 
