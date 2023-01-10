@@ -4,13 +4,13 @@
 #include "fmod_studio.hpp"
 #include "fmod.hpp"
 
-//// залупа
+//// Р·Р°Р»СѓРїР°
 #include <string>
 #include <map>
 #include <vector>
 #include <math.h>
 #include <iostream>
-//// залупа
+//// Р·Р°Р»СѓРїР°
 
 
 FMOD::System* f_system;
@@ -92,7 +92,7 @@ int playSound(const char* soundDir)
 	ArrayMap->mChannels[nChannelID] = pChannel;
 	if (result == FMOD_OK)
 	{
-		outPutConsoleMessage("FMOD - Звук запущен");
+		outPutConsoleMessage("FMOD - Р—РІСѓРє Р·Р°РїСѓС‰РµРЅ");
 	}
 		
 	return nChannelID;
@@ -181,21 +181,23 @@ struct PlaybackStateInfo
 
 static const SFixedArray<PlaybackStateInfo, 6> PlaybackRusName =
 {{
-	{"Запущен"},
-	{"Ожидание?"},
-	{"Остановлен"},
-	{"Запуск"},
-	{"Останавливается"},
-	{"Принудительное включение"},
+	{"Р—Р°РїСѓС‰РµРЅ"},
+	{"РћР¶РёРґР°РЅРёРµ?"},
+	{"РћСЃС‚Р°РЅРѕРІР»РµРЅ"},
+	{"Р—Р°РїСѓСЃРє"},
+	{"РћСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ"},
+	{"РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РІРєР»СЋС‡РµРЅРёРµ"},
 }};
 
 int getEventPlaybackState(const char* eventName)
 {
-	// Воспроизведение 0, поддержание 1, остановка 2, запуск 3, остановка 4, принудительное включение 5
+	// Р’РѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ 0, РїРѕРґРґРµСЂР¶Р°РЅРёРµ 1, РѕСЃС‚Р°РЅРѕРІРєР° 2, Р·Р°РїСѓСЃРє 3, РѕСЃС‚Р°РЅРѕРІРєР° 4, РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РІРєР»СЋС‡РµРЅРёРµ 5
 	FMOD_STUDIO_PLAYBACK_STATE state ;
 	if (ArrayMap->mEvents[eventName]->getPlaybackState(&state) == FMOD_OK)
 	{
-		std::cout << eventName << " playBack state = " << PlaybackRusName[state].Rus_Name << "\n";
+		std::cout << "\rРЎРѕР±С‹С‚РёРµ: " << eventName << " РЎРѕСЃС‚РѕСЏРЅРёРµ: " << PlaybackRusName[state].Rus_Name;
+
+		//std::cout << eventName << " playBack state = " << PlaybackRusName[state].Rus_Name << "\n";
 		return state;
 	}
 		
@@ -227,8 +229,8 @@ float getEventReverbLevel(const char* eventName)
 bool setEventReverbLevel(const char* eventName,int index,float level)
 {
    result = ArrayMap->mEvents[eventName]->setReverbLevel(index,level);
-   if (FMOD_OK == result)
-   	 std::cout << eventName << " setEventReverbLevel " << index << " " << level <<  std::endl;
+   //if (FMOD_OK == result)
+   	 //std::cout << eventName << " setEventReverbLevel " << index << " " << level <<  std::endl;
 }
 
 bool setEventVolume(const char* name,float value)
