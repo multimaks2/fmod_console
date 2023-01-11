@@ -222,11 +222,16 @@ float getEventReverbLevel(const char* eventName)
 	return lvl;
 }
 
+bool update(bool b1, bool b2);
+//*@brief Set the reverb level of the event
+//* @param[in] index(int) Index of the low level reverb instance(0 - 3)
+//* @param[in] reverb(float) The reverb level to set it to
 bool setEventReverbLevel(const char* eventName,int index,float level)
 {
    result = ArrayMap->mEvents[eventName]->setReverbLevel(index,level);
-   //if (FMOD_OK == result)
-	 //std::cout << eventName << " setEventReverbLevel " << index << " " << level <<  std::endl; // Дебаг информация
+   if (FMOD_OK == result)
+	 std::cout << eventName << " setEventReverbLevel int: " << index << " float: " << level <<  std::endl; // Дебаг информация
+   update(true, true);
 }
 
 bool setEventVolume(const char* name,float value)
@@ -320,15 +325,15 @@ void updaterSlep()
 			}
 		}
 		int r = 2;
-		double rad = (double)localRad / 180 * 3.14;
-		double x = r * cos(rad);
-		double y = r * sin(rad);
+		float rad = (float)localRad / 180 * 3.14;
+		double x = r * -cos(rad);
+		double y = r * sin(rad)*1.5;
 
-		std::cout << x <<" " << y << "\r";
-		set3DAttributes("{3ad418ed-bf88-432d-837a-469d7468bda2}", .1, .1, x, y, 0); // рандом точки звука
-		if (getEventPlaybackState("{3ad418ed-bf88-432d-837a-469d7468bda2}") == 2)
+		std::cout <<" Position " << x << " " << y <<"\r";
+		set3DAttributes("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}", 1, 1, x, y, 0); // рандом точки звука
+		if (getEventPlaybackState("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}") == 2)
 		{
-			PlayEvent("{3ad418ed-bf88-432d-837a-469d7468bda2}");
+			PlayEvent("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}");
 		}
 		update(true, true);
 		Sleep(100);

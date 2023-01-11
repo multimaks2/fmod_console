@@ -60,7 +60,7 @@ void fmod_main_load()
 	}
 
 	outPutConsoleMessage("--------------------------------");
-	const char* eventNamessss = "{3ad418ed-bf88-432d-837a-469d7468bda2}"; // {3ad418ed-bf88-432d-837a-469d7468bda2}
+	const char* eventNamessss = "{87ebcfdb-ad26-4998-bf1b-b3087d505a45}"; // {3ad418ed-bf88-432d-837a-469d7468bda2}
 	if (LoadEvent(eventNamessss) )
 	{
 		outPutConsoleMessage("Event найден и записан");
@@ -74,9 +74,9 @@ void fmod_main_load()
 			}
 			outPutConsoleMessage("--------------------------------");
 			
-			set3DAttributes(eventNamessss, 0,0 ,0, 0, 0); // 2 аргумента слушателя
-			setEventVolume(eventNamessss, .1);
-			setEventReverbLevel(eventNamessss,0,30);
+			set3DAttributes(eventNamessss, 1,1 ,0, 0, 0); // 2 аргумента слушателя
+			setEventVolume(eventNamessss, 60);
+			setEventReverbLevel(eventNamessss,3,30.0f);
 			getEventReverbLevel(eventNamessss);
 			getDriver();
 
