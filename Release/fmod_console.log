@@ -1,0 +1,14 @@
+﻿  fmod_console.cpp
+C:\Users\ismai\Desktop\git\fmod_console\Header.h(267,19): warning C4244: инициализация: преобразование "const wchar_t" в "char", возможна потеря данных
+C:\Users\ismai\Desktop\git\fmod_console\Header.h(272,40): warning C4244: =: преобразование "const wchar_t" в "char", возможна потеря данных
+C:\Users\ismai\Desktop\git\fmod_console\Header.h(283,18): warning C4244: инициализация: преобразование "const wchar_t" в "char", возможна потеря данных
+C:\Users\ismai\Desktop\git\fmod_console\FMOD_API.h(331,72): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\ismai\Desktop\git\fmod_console\FMOD_API.h(331,69): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\ismai\Desktop\git\fmod_console\FMOD_API.h(331,76): warning C4305: аргумент: усечение из "double" в "float"
+C:\Users\ismai\Desktop\git\fmod_console\fmod_console.cpp(84,36): warning C4305: аргумент: усечение из "double" в "float"
+  Создание кода
+  11 of 512 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+    6 functions were new in current compilation
+    8 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  fmod_console.vcxproj -> C:\Users\ismai\Desktop\git\fmod_console\Release\fmod_console.exe
