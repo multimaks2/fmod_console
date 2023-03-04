@@ -148,6 +148,7 @@
     <ClInclude Include="include\fsbank_errors.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SString.h" />
+    <ClInclude Include="thread.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dll-lib\fmod.dll" />

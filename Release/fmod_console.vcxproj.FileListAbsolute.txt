@@ -1,1 +1,2 @@
 C:\Users\ismai\Desktop\git\fmod_console\Release\fmod_console.exe
+C:\Users\SKYNET\Desktop\git\fmod_console\Release\fmod_console.exe

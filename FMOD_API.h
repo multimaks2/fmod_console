@@ -23,6 +23,7 @@ FMOD::Studio::Bank* vehiclesBank;
 FMOD::Studio::EventDescription* eventDescription = NULL;
 FMOD::Studio::EventInstance* eventInstance = NULL;
 FMOD::Studio::Bank* localRadzedBank = NULL;
+FMOD::Reverb3D* reverb;
 
 struct myArray {
 	int mnNextChannelId;
@@ -31,7 +32,7 @@ struct myArray {
 	typedef std::map<SString, FMOD::Sound*> SoundMap;
 	typedef std::map<int, FMOD::Channel*> ChannelMap;
 	typedef std::map<SString, FMOD::Studio::EventInstance*> EventMap;
-
+	
 	testBank mTest;
 	BankMap mBanks;
 	EventMap mEvents;
@@ -166,8 +167,14 @@ bool StopEvent(const char* eventName, bool bImmediate)
 
 bool setEventParameterByName(const char* eventName,const char* parametr,float value)
 {
-	ArrayMap->mEvents[eventName]->setParameterByName(parametr,value);
-	ArrayMap->mEvents[eventName]->start();
+	result = ArrayMap->mEvents[eventName]->setParameterByName(parametr, value);
+	if (result == FMOD_OK)
+	{
+		result = ArrayMap->mEvents[eventName]->start();
+		ArrayMap->mEvents[eventName]->setReverbLevel(0,2);
+		if (!result == FMOD_OK)
+			return false;
+	}
 	return true;
 }
 
@@ -192,7 +199,7 @@ int getEventPlaybackState(const char* eventName)
 	FMOD_STUDIO_PLAYBACK_STATE state ;
 	if (ArrayMap->mEvents[eventName]->getPlaybackState(&state) == FMOD_OK)
 	{
-		std::cout << "\rСобытие: " << eventName << " Состояние: " << PlaybackRusName[state].Rus_Name;
+		//std::cout << "\rСобытие: " << eventName << " Состояние: " << PlaybackRusName[state].Rus_Name << "\r";
 
 		//std::cout << eventName << " playBack state = " << PlaybackRusName[state].Rus_Name << "\n";
 		return state;
@@ -205,16 +212,20 @@ int getEventPlaybackState(const char* eventName)
 
 bool set3DAttributes(const char* eventName, float forward_z, float up_y ,float fx, float fy, float fz)
 {
-	FMOD_3D_ATTRIBUTES attributes = { { 0 } };
+	FMOD_3D_ATTRIBUTES attributes = {  };
 	attributes.forward.z = forward_z;
+	attributes.velocity = {0,0,0};
 	attributes.up.y = up_y;
-	f_studio->setListenerAttributes(0, &attributes);
+	f_studio->setListenerAttributes(1, &attributes);
 	attributes.position.x = fx;
 	attributes.position.y = fy;
 	attributes.position.z = fz;
 	ArrayMap->mEvents[eventName]->set3DAttributes(&attributes);
 	return true;
 }
+
+
+
 
 float getEventReverbLevel(const char* eventName)
 {
@@ -228,6 +239,16 @@ bool update(bool b1, bool b2);
 //* @param[in] reverb(float) The reverb level to set it to
 bool setEventReverbLevel(const char* eventName,int index,float level)
 {
+
+	result = f_system->createReverb3D(&reverb);
+	FMOD_REVERB_PROPERTIES prop2 = FMOD_PRESET_CONCERTHALL;
+	reverb->setProperties(&prop2);
+	FMOD_VECTOR pos = { -10.0f, 0.0f, 0.0f };
+	float mindist = 10.0f;
+	float maxdist = 20.0f;
+	reverb->set3DAttributes(&pos, mindist, maxdist);
+	FMOD_VECTOR  listenerpos = { 0.0f, 0.0f, -1.0f };
+	f_system->set3DListenerAttributes(0, &listenerpos, 0, 0, 0);
    result = ArrayMap->mEvents[eventName]->setReverbLevel(index,level);
    if (FMOD_OK == result)
 	 std::cout << eventName << " setEventReverbLevel int: " << index << " float: " << level <<  std::endl; // Дебаг информация
@@ -288,8 +309,8 @@ bool initFmodStudio(int channel, const char* oneFlag, const char* twoFlag)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
+#include <cmath>
+#include <iostream>
 
 
 bool update(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
@@ -301,43 +322,42 @@ bool update(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
 	return true;
 }
 
+void calcXY(double angle, double radius, double& x, double& y) {
+	// Convert angle from degrees to radians
+	double theta = angle * 3.14159265358979323846 / 180.0;
 
-void updaterSlep()
+	// Calculate x and y coordinates
+	x = radius * cos(theta);
+	y = radius * sin(theta);
+}
+
+
+void rotate(const char* evv)
 {
-	float localRad = 0;
-	bool reverse = false;
-	do
-	{
-		if (reverse == false)
+	double angle = 0;
+	double radius = 20;
+	while (true) {
+		angle = angle + 1;
+		if (angle >= 360)
 		{
-			localRad = localRad + 2;
-			if ((int)localRad == 360)
-			{
-				reverse = true;
-			}
+			angle = 0;
 		}
-		else if (reverse == true)
-		{
-			localRad = localRad - 2;
-			if ((int)localRad == 0)
-			{
-				reverse = false;
-			}
-		}
-		int r = 2;
-		float rad = (float)localRad / 180 * 3.14;
-		double x = r * -cos(rad);
-		double y = r * sin(rad)*1.5;
+		double x, y;
+		calcXY(angle, radius, x, y);
 
-		std::cout <<" Position " << x << " " << y <<"\r";
-		set3DAttributes("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}", 1, 1, x, y, 0); // рандом точки звука
-		if (getEventPlaybackState("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}") == 2)
-		{
-			PlayEvent("{87ebcfdb-ad26-4998-bf1b-b3087d505a45}");
-		}
+		std::cout << "Angle " << angle << " - " << "x: " << x << ", y: " << y << "\r";
+
+		float forward_z = cos(angle);
+		float up_y = sin(angle);
+		set3DAttributes(evv, forward_z, up_y, x, y, 0); // рандом точки звука
+
 		update(true, true);
 		Sleep(100);
-	} while (true);
+		if (getEventPlaybackState(evv) == 2)
+		{
+			PlayEvent(evv);
+		}
+	}
 }
 
 bool release(bool b1, bool b2) // 1 bool (core fmod) - 2 bool (studio fmod)
